@@ -1,9 +1,10 @@
 ---
-title: "Linear Regression"
+title: "Simple Linear Regression"
 author: "Kshitij Srivastava"
-date: "April 12, 2019"
+date: "2019-04-12T12:00:00-07:00"
 categories: ["regression"]
 tags: ["simple linear regression"]
+
 ---
 
 ```{r setup, include=FALSE}
