@@ -1,6 +1,6 @@
-baseurl = "https://nanx.me/hugo-renga/"
-title = "Hugo Renga Theme Demo"
-author = "Jane Doe"
+baseurl = "https://kshitijsrivastava.com/"
+title = "Kshitij Srivastava"
+author = "Kshitij Srivastava"
 canonifyurls = true
 languagecode = "en"
 paginate = 3
@@ -15,20 +15,20 @@ hasCJKLanguage = true
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 
 [params]
-pagetitle = "Jane Doe"
-copyright = "© 2018 Jane Doe"
-copyrightUrl = "https://nanx.me/hugo-renga/"
-faviconfile = "image/favicon.png"
-logofile = "image/avatar.png"
+pagetitle = "Kshitij Srivastava"
+copyright = "© 2018 Kshitij Srivastava"
+copyrightUrl = "https://kshitijsrivastava.com/"
+faviconfile = "image/favicon1.png"
+logofile = "image/kshitij.jpg"
 posts_navigation = true
 uselatex = true
 highlightjs = true
 progressively = false
 
-github = "nanxstats"
-twitter = "nanxstats"
-linkedin = "nanxstats"
-email = "example@example.com"
+github = "kshitij0987"
+twitter = "7shitij"
+linkedin = "kshitij-srivastava-ds"
+email = "ksrivastava34@gatech.edu"
 
 [[menu.primary]]
 identifier = "about"
