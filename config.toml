@@ -9,14 +9,14 @@ theme = "hugo-renga"
 enableEmoji = true
 hasCJKLanguage = true
 
-# googleAnalytics = "UA-00000000-1"
-# disqusShortname = "your-disqus-shortname"
+googleAnalytics = "UA-00000000-1"
+disqusShortname = "datageek1"
 
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 
 [params]
 pagetitle = "Kshitij Srivastava"
-copyright = "© 2018 Kshitij Srivastava"
+copyright = "© 2019 Kshitij Srivastava"
 copyrightUrl = "https://kshitijsrivastava.com/"
 faviconfile = "image/favicon1.png"
 logofile = "image/kshitij.jpg"
@@ -30,11 +30,6 @@ twitter = "7shitij"
 linkedin = "kshitij-srivastava-ds"
 email = "ksrivastava34@gatech.edu"
 
-[[menu.primary]]
-identifier = "about"
-name = "About"
-url = "/about/"
-weight = 1
 
 [[menu.primary]]
 identifier = "blog"

@@ -1,12 +1,16 @@
 ---
-title: "The Renga Theme for Hugo"
-date: "2018-11-09"
+title: "Home"
 menu: "main"
-description: "Website description."
+description: "Data Scientist"
 ---
 
-Lorem ipsum dolor sit amet, ex has sale ullum corrumpit, sea dicam nostrum sensibus ad. Porro tritani persecuti te sed. Omittam dissentias pro ex. Atqui luptatum duo id. Eros minim eam ex, novum elitr accusam quo in. Nec ne audire euripidis, [mea qualisque consetetur cu](https://nanx.me). Suspendisse volutpat sem a risus euismod convallis.
+Hi there! This is Kshitij!
 
-In modus congue feugait eos. In nec nonumy volutpat corrumpit, sea assentior quaerendum no, cum affert scripta ea. No nihil voluptaria pro. [Erat democritum mei no](https://nanx.me), homero quodsi aliquando id mel, ridens civibus molestiae et nam.
+I currently work with Milliman Inc. as a data scientist/ ML engineer. At Milliman, I lead  machine-learning efforts in actuarial sciences. Specifically, I apply statistical learning to model lapses and surrenders for life-insurance policies. I am also a visualization geek, so I lead dashboard development in [Shiny](https://shiny.rstudio.com/) and am keenly interested in [Flask](http://flask.pocoo.org/). I also lead efforts in areas of [DevOps](https://www.atlassian.com/devops) and [DevSecOps](https://www.redhat.com/en/topics/devops/what-is-devsecops).
 
-Ea eam postea facilisi. Nullam forensibus consequuntur usu ea, no ius consul delectus periculis. Eam veri numquam an. Et partiendo gubergren eam. Quod iudicabit has ex, eam diam facilisi eu, elitr aliquip no eum.
+I am a [Georgia Tech](https://www.cc.gatech.edu/) grad and my academic interests are leveraging big data tools to develop scalable statistical machine learning methods in areas of computer vision and healthcare. I am a contributor on the [CheXpert] (https://stanfordmlgroup.github.io/competitions/chexpert/) project.
+
+I also frequently contribute to open source software for statistical learning and data visualization.
+
+My goals are making a dent in the world by advancing the current state of the art in deep-learning.
+Oh and I also talk frequently at industry conferences. Catch me next in Zurich, where I am going to talk at the [Insurance data science conference](https://insurancedatascience.org/). 

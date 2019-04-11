@@ -1,0 +1,103 @@
+---
+title: "Linear Regression"
+author: "Kshitij Srivastava"
+date: "11 April 2019"
+categories: ["regression",  ]
+tags: ["simple linear regression"]
+---
+  
+  ```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Regression on Auto dataset
+We will first fit a simple linear regression model using the **Auto** dataset. Next we will examine the fit using various diagnostic plots.
+
+```{r LoadDataset}
+library(ISLR)
+head(Auto)
+```
+
+## Fitting a simple linear model
+Let's use mpg as response and horsepower as predictor
+
+```{r fitModel}
+modelFit <- lm(mpg~horsepower, data=Auto)
+summary(modelFit)
+```
+
+We have got a good R squared value. R squared value is the amount of variance in the response, which can be explained by the predictor/s. We also see that the predictor has a low standard error and low p value which tells us that it's statistically significant. The p value here tests the null hypothesis that keeping all other predictors constant (none right now), *horsepower* has no effect on *mpg*. We can reject the null hypothesis because of the low p-value. We also note that the relationship between mpg and horsepower is negative.
+
+## Prediction using the model
+Let's try and predict the value of mpg when horsepower is 98. Also let's get the confidence and prediction intervals around the prediction value. Prediction intervals are inherently wider than confidence intervals because they include the irreducible error in response as well.
+
+```{r prediction}
+predict(modelFit, data.frame(horsepower = c(98)), type = "response")
+predict(modelFit, data.frame(horsepower = c(98)), type = "response", interval = "confidence")
+predict(modelFit, data.frame(horsepower = c(98)), type = "response", interval = "prediction")
+```
+
+## Regression diagnostic
+Let's now plot the response and predictor
+```{r}
+plot(Auto$horsepower,Auto$mpg)
+abline(modelFit)
+```
+
+We can see some hints of non-linearity here. Lets's plot some diagnostics
+```{r diagnostics}
+par(mfrow=c(2,2))
+plot(modelFit)
+
+```
+In the residuals vs fitted graph we can see a clear non-linear trend.
+
+Let's use the *car* package to plot some more diagnostics.
+
+We can use the *car* package to plot studentized residuals. Studentized residuals are 
+```{r Using car package for diagnostics}
+library(car)
+outlierTest(modelFit)
+```
+It can be difficult to reside the threshold for a point to be an outlier. Studentized residuals are obtained by dividing each residual by its standard error. Studentized residuals greater than 3 should be removed.
+
+High leverage points are those points which influence the fit more than others.
+We can use the *leveragePlots* function in R to check leverage points.
+
+```{r Leverage Points}
+leveragePlots(modelFit)
+```
+
+## Detecting influential points
+```{r}
+avPlots(modelFit)
+```
+
+##Non-normality of residuals
+```{r}
+qqPlot(modelFit, main="QQ Plot")
+```
+
+Let's try and get the distribution of studentized residulas using *MASS* package
+```{r}
+library(MASS)
+sresid <- studres(modelFit) 
+hist(sresid, freq=FALSE, 
+   main="Distribution of Studentized Residuals")
+```
+
+## Heteroscedasticity
+Heteroscedasticity is a property shown by residuals when they have non constant variance. This can be checked by plotting studentized residuals against fitted values
+```{r}
+spreadLevelPlot(modelFit)
+```
+We can see a slight positive slope but not enough to be a cause of concern. Non linear distribution of studentized residuals is a bigger concern.
+
+## Trying the gvlma package for testing linear model assumptions
+```{r}
+library(gvlma)
+gvmodel <- gvlma(modelFit) 
+summary(gvmodel)
+```
+
+Global stat tells us if the relationship between y and x are truly linear. Clearly, as concluded earlier in the diagnostic plots, our model is not linear
