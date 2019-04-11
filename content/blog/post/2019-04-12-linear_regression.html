@@ -1,7 +1,7 @@
 ---
 title: "Linear Regression"
 author: "Kshitij Srivastava"
-date: "2019-04-12"
+date: "2019-04-12T12:00:00-07:00"
 categories: ["regression"]
 tags: ["simple linear regression"]
 ---
@@ -72,11 +72,11 @@ summary(modelFit)</code></pre>
 <p>Let’s now plot the response and predictor</p>
 <pre class="r"><code>plot(Auto$horsepower,Auto$mpg)
 abline(modelFit)</code></pre>
-<p><img src="2019-04-12-linear_regression_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p><img src="/blog/post/2019-04-12-linear_regression_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
 <p>We can see some hints of non-linearity here. Lets’s plot some diagnostics</p>
 <pre class="r"><code>par(mfrow=c(2,2))
 plot(modelFit)</code></pre>
-<p><img src="2019-04-12-linear_regression_files/figure-html/diagnostics-1.png" width="672" /> In the residuals vs fitted graph we can see a clear non-linear trend.</p>
+<p><img src="/blog/post/2019-04-12-linear_regression_files/figure-html/diagnostics-1.png" width="672" /> In the residuals vs fitted graph we can see a clear non-linear trend.</p>
 <p>Let’s use the <em>car</em> package to plot some more diagnostics.</p>
 <p>We can use the <em>car</em> package to plot studentized residuals. Studentized residuals are</p>
 <pre class="r"><code>library(car)</code></pre>
@@ -91,17 +91,17 @@ plot(modelFit)</code></pre>
 <p>It can be difficult to reside the threshold for a point to be an outlier. Studentized residuals are obtained by dividing each residual by its standard error. Studentized residuals greater than 3 should be removed.</p>
 <p>High leverage points are those points which influence the fit more than others. We can use the <em>leveragePlots</em> function in R to check leverage points.</p>
 <pre class="r"><code>leveragePlots(modelFit)</code></pre>
-<p><img src="2019-04-12-linear_regression_files/figure-html/Leverage Points-1.png" width="672" /></p>
+<p><img src="/blog/post/2019-04-12-linear_regression_files/figure-html/Leverage%20Points-1.png" width="672" /></p>
 </div>
 <div id="detecting-influential-points" class="section level2">
 <h2>Detecting influential points</h2>
 <pre class="r"><code>avPlots(modelFit)</code></pre>
-<p><img src="2019-04-12-linear_regression_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p><img src="/blog/post/2019-04-12-linear_regression_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 </div>
 <div id="non-normality-of-residuals" class="section level2">
 <h2>Non-normality of residuals</h2>
 <pre class="r"><code>qqPlot(modelFit, main=&quot;QQ Plot&quot;)</code></pre>
-<p><img src="2019-04-12-linear_regression_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="/blog/post/2019-04-12-linear_regression_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <pre><code>## 323 330 
 ## 321 328</code></pre>
 <p>Let’s try and get the distribution of studentized residulas using <em>MASS</em> package</p>
@@ -109,13 +109,13 @@ plot(modelFit)</code></pre>
 sresid &lt;- studres(modelFit) 
 hist(sresid, freq=FALSE, 
    main=&quot;Distribution of Studentized Residuals&quot;)</code></pre>
-<p><img src="2019-04-12-linear_regression_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p><img src="/blog/post/2019-04-12-linear_regression_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 </div>
 <div id="heteroscedasticity" class="section level2">
 <h2>Heteroscedasticity</h2>
 <p>Heteroscedasticity is a property shown by residuals when they have non constant variance. This can be checked by plotting studentized residuals against fitted values</p>
 <pre class="r"><code>spreadLevelPlot(modelFit)</code></pre>
-<p><img src="2019-04-12-linear_regression_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p><img src="/blog/post/2019-04-12-linear_regression_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <pre><code>## 
 ## Suggested power transformation:  0.7680649</code></pre>
 <p>We can see a slight positive slope but not enough to be a cause of concern. Non linear distribution of studentized residuals is a bigger concern.</p>
