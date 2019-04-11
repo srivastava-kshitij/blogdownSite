@@ -1,0 +1,163 @@
+---
+title: "Linear Regression"
+author: "Kshitij Srivastava"
+date: '2019-04-12T00:13:14-05:00'
+categories: ["regression",  ]
+tags: ["simple linear regression"]
+---
+
+
+
+<div id="regression-on-auto-dataset" class="section level2">
+<h2>Regression on Auto dataset</h2>
+<p>We will first fit a simple linear regression model using the <strong>Auto</strong> dataset. Next we will examine the fit using various diagnostic plots.</p>
+<pre class="r"><code>library(ISLR)</code></pre>
+<pre><code>## Warning: package &#39;ISLR&#39; was built under R version 3.5.3</code></pre>
+<pre class="r"><code>head(Auto)</code></pre>
+<pre><code>##   mpg cylinders displacement horsepower weight acceleration year origin
+## 1  18         8          307        130   3504         12.0   70      1
+## 2  15         8          350        165   3693         11.5   70      1
+## 3  18         8          318        150   3436         11.0   70      1
+## 4  16         8          304        150   3433         12.0   70      1
+## 5  17         8          302        140   3449         10.5   70      1
+## 6  15         8          429        198   4341         10.0   70      1
+##                        name
+## 1 chevrolet chevelle malibu
+## 2         buick skylark 320
+## 3        plymouth satellite
+## 4             amc rebel sst
+## 5               ford torino
+## 6          ford galaxie 500</code></pre>
+</div>
+<div id="fitting-a-simple-linear-model" class="section level2">
+<h2>Fitting a simple linear model</h2>
+<p>Let’s use mpg as response and horsepower as predictor</p>
+<pre class="r"><code>modelFit &lt;- lm(mpg~horsepower, data=Auto)
+summary(modelFit)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ horsepower, data = Auto)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -13.5710  -3.2592  -0.3435   2.7630  16.9240 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 39.935861   0.717499   55.66   &lt;2e-16 ***
+## horsepower  -0.157845   0.006446  -24.49   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 4.906 on 390 degrees of freedom
+## Multiple R-squared:  0.6059, Adjusted R-squared:  0.6049 
+## F-statistic: 599.7 on 1 and 390 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>We have got a good R squared value. R squared value is the amount of variance in the response, which can be explained by the predictor/s. We also see that the predictor has a low standard error and low p value which tells us that it’s statistically significant. The p value here tests the null hypothesis that keeping all other predictors constant (none right now), <em>horsepower</em> has no effect on <em>mpg</em>. We can reject the null hypothesis because of the low p-value. We also note that the relationship between mpg and horsepower is negative.</p>
+</div>
+<div id="prediction-using-the-model" class="section level2">
+<h2>Prediction using the model</h2>
+<p>Let’s try and predict the value of mpg when horsepower is 98. Also let’s get the confidence and prediction intervals around the prediction value. Prediction intervals are inherently wider than confidence intervals because they include the irreducible error in response as well.</p>
+<pre class="r"><code>predict(modelFit, data.frame(horsepower = c(98)), type = &quot;response&quot;)</code></pre>
+<pre><code>##        1 
+## 24.46708</code></pre>
+<pre class="r"><code>predict(modelFit, data.frame(horsepower = c(98)), type = &quot;response&quot;, interval = &quot;confidence&quot;)</code></pre>
+<pre><code>##        fit      lwr      upr
+## 1 24.46708 23.97308 24.96108</code></pre>
+<pre class="r"><code>predict(modelFit, data.frame(horsepower = c(98)), type = &quot;response&quot;, interval = &quot;prediction&quot;)</code></pre>
+<pre><code>##        fit     lwr      upr
+## 1 24.46708 14.8094 34.12476</code></pre>
+</div>
+<div id="regression-diagnostic" class="section level2">
+<h2>Regression diagnostic</h2>
+<p>Let’s now plot the response and predictor</p>
+<pre class="r"><code>plot(Auto$horsepower,Auto$mpg)
+abline(modelFit)</code></pre>
+<p><img src="/blog/post/linear_regression_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p>We can see some hints of non-linearity here. Lets’s plot some diagnostics</p>
+<pre class="r"><code>par(mfrow=c(2,2))
+plot(modelFit)</code></pre>
+<p><img src="/blog/post/linear_regression_files/figure-html/diagnostics-1.png" width="672" /> In the residuals vs fitted graph we can see a clear non-linear trend.</p>
+<p>Let’s use the <em>car</em> package to plot some more diagnostics.</p>
+<p>We can use the <em>car</em> package to plot studentized residuals. Studentized residuals are</p>
+<pre class="r"><code>library(car)</code></pre>
+<pre><code>## Warning: package &#39;car&#39; was built under R version 3.5.3</code></pre>
+<pre><code>## Loading required package: carData</code></pre>
+<pre><code>## Warning: package &#39;carData&#39; was built under R version 3.5.2</code></pre>
+<pre class="r"><code>outlierTest(modelFit)</code></pre>
+<pre><code>## No Studentized residuals with Bonferonni p &lt; 0.05
+## Largest |rstudent|:
+##     rstudent unadjusted p-value Bonferonni p
+## 323 3.508709         0.00050294      0.19715</code></pre>
+<p>It can be difficult to reside the threshold for a point to be an outlier. Studentized residuals are obtained by dividing each residual by its standard error. Studentized residuals greater than 3 should be removed.</p>
+<p>High leverage points are those points which influence the fit more than others. We can use the <em>leveragePlots</em> function in R to check leverage points.</p>
+<pre class="r"><code>leveragePlots(modelFit)</code></pre>
+<p><img src="/blog/post/linear_regression_files/figure-html/Leverage%20Points-1.png" width="672" /></p>
+</div>
+<div id="detecting-influential-points" class="section level2">
+<h2>Detecting influential points</h2>
+<pre class="r"><code>avPlots(modelFit)</code></pre>
+<p><img src="/blog/post/linear_regression_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+</div>
+<div id="non-normality-of-residuals" class="section level2">
+<h2>Non-normality of residuals</h2>
+<pre class="r"><code>qqPlot(modelFit, main=&quot;QQ Plot&quot;)</code></pre>
+<p><img src="/blog/post/linear_regression_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<pre><code>## 323 330 
+## 321 328</code></pre>
+<p>Let’s try and get the distribution of studentized residulas using <em>MASS</em> package</p>
+<pre class="r"><code>library(MASS)
+sresid &lt;- studres(modelFit) 
+hist(sresid, freq=FALSE, 
+   main=&quot;Distribution of Studentized Residuals&quot;)</code></pre>
+<p><img src="/blog/post/linear_regression_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+</div>
+<div id="heteroscedasticity" class="section level2">
+<h2>Heteroscedasticity</h2>
+<p>Heteroscedasticity is a property shown by residuals when they have non constant variance. This can be checked by plotting studentized residuals against fitted values</p>
+<pre class="r"><code>spreadLevelPlot(modelFit)</code></pre>
+<p><img src="/blog/post/linear_regression_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<pre><code>## 
+## Suggested power transformation:  0.7680649</code></pre>
+<p>We can see a slight positive slope but not enough to be a cause of concern. Non linear distribution of studentized residuals is a bigger concern.</p>
+</div>
+<div id="trying-the-gvlma-package-for-testing-linear-model-assumptions" class="section level2">
+<h2>Trying the gvlma package for testing linear model assumptions</h2>
+<pre class="r"><code>library(gvlma)</code></pre>
+<pre><code>## Warning: package &#39;gvlma&#39; was built under R version 3.5.2</code></pre>
+<pre class="r"><code>gvmodel &lt;- gvlma(modelFit) 
+summary(gvmodel)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ horsepower, data = Auto)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -13.5710  -3.2592  -0.3435   2.7630  16.9240 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 39.935861   0.717499   55.66   &lt;2e-16 ***
+## horsepower  -0.157845   0.006446  -24.49   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 4.906 on 390 degrees of freedom
+## Multiple R-squared:  0.6059, Adjusted R-squared:  0.6049 
+## F-statistic: 599.7 on 1 and 390 DF,  p-value: &lt; 2.2e-16
+## 
+## 
+## ASSESSMENT OF THE LINEAR MODEL ASSUMPTIONS
+## USING THE GLOBAL TEST ON 4 DEGREES-OF-FREEDOM:
+## Level of Significance =  0.05 
+## 
+## Call:
+##  gvlma(x = modelFit) 
+## 
+##                      Value   p-value                   Decision
+## Global Stat        110.921 0.000e+00 Assumptions NOT satisfied!
+## Skewness            15.847 6.869e-05 Assumptions NOT satisfied!
+## Kurtosis             1.458 2.273e-01    Assumptions acceptable.
+## Link Function       81.186 0.000e+00 Assumptions NOT satisfied!
+## Heteroscedasticity  12.430 4.224e-04 Assumptions NOT satisfied!</code></pre>
+<p>Global stat tells us if the relationship between y and x are truly linear. Clearly, as concluded earlier in the diagnostic plots, our model is not linear</p>
+</div>
