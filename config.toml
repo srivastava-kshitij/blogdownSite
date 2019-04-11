@@ -1,39 +1,42 @@
-baseurl = "https://nanx.me/hugo-tanka/"
-title = "Hugo Tanka Theme"
-author = "Nan Xiao"
-canonifyurls = true
-languagecode = "en"
+baseurl = "/"
+languageCode = "en-us"
+title = "Kshitij Srivastava"
 theme = "hugo-tanka"
-
 googleAnalytics = ""
 disqusShortname = ""
-disable_mathjax = false
-
-pygmentsstyle      = "vs"
-pygmentscodefences = true
-
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 
-[params]
-  sitename = "Hugo Tanka Theme"
+[permalinks]
+    post = "/:year/:month/:day/:slug/"
 
 [[menu.main]]
-    name = "Home"
-    url = "https://nanx.me"
-    weight = 1
+    name = "About"
+    url = "/about/"
 [[menu.main]]
     name = "GitHub"
-    url = "https://github.com/nanxstats"
-    weight = 2
-[[menu.main]]
-    name = "LinkedIn"
-    url = "https://www.linkedin.com/in/nanxstats"
-    weight = 3
+    url = "https://github.com/rstudio/blogdown"
 [[menu.main]]
     name = "Twitter"
-    url = "https://twitter.com/nanxstats"
-    weight = 4
-[[menu.main]]
-    name = "RSS"
-    url = "/index.xml"
-    weight = 5
+    url = "https://twitter.com/rstudio"
+
+[params]
+    description = "A website built through Hugo and blogdown."
+
+    # options for highlight.js (version, additional languages, and theme)
+    highlightjsVersion = "9.12.0"
+    highlightjsCDN = "//cdnjs.cloudflare.com/ajax/libs"
+    highlightjsLang = ["r", "yaml"]
+    highlightjsTheme = "github"
+
+    MathJaxCDN = "//cdnjs.cloudflare.com/ajax/libs"
+    MathJaxVersion = "2.7.5"
+
+    # path to the favicon, under "static"
+    favicon = "favicon.ico"
+
+    [params.logo]
+    url = "logo.png"
+    width = 50
+    height = 50
+    alt = "Logo"
+
