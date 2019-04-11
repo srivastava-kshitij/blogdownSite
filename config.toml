@@ -9,7 +9,7 @@ theme = "hugo-renga"
 enableEmoji = true
 hasCJKLanguage = true
 
-googleAnalytics = "UA-00000000-1"
+googleAnalytics = "UA-138240838-1"
 disqusShortname = "datageek1"
 
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
