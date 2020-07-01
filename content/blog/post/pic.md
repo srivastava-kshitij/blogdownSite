@@ -1,10 +1,10 @@
-- - - -
+---
 title: "from bear md"
 author: "Kshitij Srivastava"
 date: "2020-06-30T00:00:00+05:00"
 categories: ["general"]
 tags: ["general"]
-- - - -
+---
 
 # Welcome to StackEdit!
 
